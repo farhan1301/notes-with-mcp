@@ -1,0 +1,44 @@
+{
+  "name": "notes-with-mcp",
+  "version": "1.0.0",
+  "description": "Your notes. Your data. Connected to your AI agents.",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test src/lib/*.test.mjs api/*.test.js && node --experimental-strip-types --no-warnings --test supabase/functions/notes-embed/chunk.test.mjs && node --test scripts/*.test.mjs",
+    "setup": "node scripts/setup.mjs",
+    "test:db": "bash supabase/tests/run.sh",
+    "export": "node --env-file-if-exists=.env.local scripts/export.mjs",
+    "test:edge": "deno test supabase/functions/notes-images/download.test.ts",
+    "check:edge": "deno check --no-config --no-lock --node-modules-dir=none supabase/functions/notes-embed/index.ts supabase/functions/notes-search/index.ts supabase/functions/notes-images/index.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.118.0",
+    "lucide-react": "0.460.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-markdown": "9.1.0",
+    "remark-breaks": "4.0.0",
+    "remark-gfm": "4.0.1"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "@tailwindcss/typography": "0.5.20",
+    "@vitejs/plugin-react": "6.2.1",
+    "autoprefixer": "10.6.1",
+    "postcss": "8.5.31",
+    "tailwindcss": "3.4.19",
+    "vite": "8.3.5"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "overrides": {
+    "@tailwindcss/typography": {
+      "postcss-selector-parser": "6.1.5"
+    }
+  }
+}

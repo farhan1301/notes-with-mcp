@@ -1,0 +1,8 @@
+project_id = "notes-with-mcp"
+
+[functions.notes-embed]
+verify_jwt = false
+[functions.notes-search]
+verify_jwt = false
+[functions.notes-images]
+verify_jwt = false
