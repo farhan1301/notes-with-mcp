@@ -29,9 +29,13 @@ You will need accounts with both providers. Account login, choosing the owner, a
 - **Recover changes:** note version history, conflict detection, note Trash, and a 30-day image Trash.
 - **Use it on your phone:** add the web app to your home screen. This is a web app/PWA, not a native Apple Notes client.
 
-## Your agents work with the same notes
+## AI access: connect your notes to your agents
 
-Open **AI access**, create a separate key for each agent, and connect it to your app's `/api/mcp` endpoint.
+Your notes can be a **context layer you own**, shared across the AI agents you use. Keep ideas, plans, decisions, reference material, and images in one place. Each connected agent can find and work with those notes using the access you give it.
+
+### 1. Create a key for each agent
+
+Open **AI access** in the notes app, give the key a name such as “ChatGPT”, “Claude Code”, or “Codex”, and choose its permissions. Create separate keys so you can change or revoke one agent's access independently.
 
 | Key access | What the agent can do |
 | --- | --- |
@@ -40,6 +44,29 @@ Open **AI access**, create a separate key for each agent, and connect it to your
 | Full edit | Create, edit, tag, pin, move, trash, restore, and organize notes and folders. |
 
 Agent changes appear in the activity log. Change permissions or revoke a key at any time. **Add to Inbox is not an append-only or folder-private key:** it can read all notes and edit all Inbox notes. Full edit is the broadest agent level; permanent deletion and key management remain owner actions in the app.
+
+### 2. Add your notes as a custom MCP connection
+
+AI access shows the connection URL and setup commands when you create a key. Copy them into your agent's custom MCP or plugin settings.
+
+| Agent | How to connect |
+| --- | --- |
+| **ChatGPT** | On the web, open **[Plugins](https://chatgpt.com/plugins)** → **+** → **Add custom MCP server**. Name it “My Notes”, paste the key URL from AI access as the Server URL, and select **Create as a plugin**. Install the plugin, then select it with `@` in your conversation. |
+| **Claude Code** | Add the connection with `claude mcp add --transport http notes "YOUR_MCP_KEY_URL"`. AI access provides the command with your own URL. |
+| **Codex** | Use the command in AI access to add the MCP endpoint, with your key supplied through the private `NOTES_AGENT_KEY` environment variable. |
+| **Other MCP-capable agents** | Add a custom remote MCP server using your endpoint and an Authorization bearer key, or the key URL if the client accepts URL-based connections. |
+
+For ChatGPT's key-URL connection, choose **No authentication** if the creation screen asks for an authentication method: the key included in the URL authenticates requests to your notes app. Keep that URL private, just like a password. Custom plugin access depends on your account and workspace permissions. See the [official ChatGPT setup guide](https://developers.openai.com/api/docs/guides/custom-mcp-server) and our [detailed agent connection guide](docs/agents.md).
+
+![AI access showing key permissions and agent connection instructions](docs/ai-access.png)
+
+*Example connection screen with a fictional key.*
+
+### 3. Use the same context across agents
+
+Save research with ChatGPT, ask Claude Code to use those notes while building a project, and ask Codex to record the resulting decisions. The next agent can pick up from the notes already saved, with less repeated explanation and copy-pasting.
+
+You choose what to save and which agents can change it. Your notes stay in your database as you switch agents, and the app remains a place where you can read and edit them yourself. Agents retrieve relevant notes on demand through MCP; saved notes and supported images form the shared context, while each agent's conversation history stays with that agent.
 
 Examples:
 
@@ -51,7 +78,7 @@ Examples:
 >
 > “Add this screenshot to my project note.”
 
-The server offers 23 tools over stateless Streamable HTTP with bearer-key authentication. Connection recipes are included for Codex, Claude Code, and generic MCP clients. A client must support remote HTTP MCP and this authentication method; support for every agent or plan is not assumed. The app supplies context when the agent calls its tools—it does not automatically insert every note into every chat.
+The server offers 23 tools over stateless Streamable HTTP with bearer-key authentication. Use a client that supports remote HTTP MCP and either bearer headers or a key URL. See [the connection guide](docs/agents.md) for configuration, supported operations, and a quick connection check.
 
 ## Own your installation
 
