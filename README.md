@@ -55,6 +55,18 @@ Open **AI access** in the notes app, give the key a name such as “ChatGPT”, 
 
 Agent changes appear in the activity log. Change permissions or revoke a key at any time. **Add to Inbox is not an append-only or folder-private key:** it can read all notes and edit all Inbox notes. Full edit is the broadest agent level; permanent deletion and key management remain owner actions in the app.
 
+```mermaid
+flowchart TB
+    Owner["Owner · manages agent keys"]
+    Owner --> Read["Read only"]
+    Owner --> Inbox["Add to Inbox"]
+    Owner --> Edit["Full edit"]
+    Read --> R["Search and read all notes,<br/>history and images"]
+    Inbox --> I["Read everything<br/>Create notes in Inbox<br/>Edit any note still in Inbox"]
+    Edit --> E["Read everything<br/>Create, edit and organize<br/>Move to Trash and restore"]
+    Owner --> O["Owner-only actions<br/>Manage keys<br/>Permanently delete"]
+```
+
 ### 2. Add your notes as a custom MCP connection
 
 AI access shows the connection URL and setup commands when you create a key. Copy them into your agent's custom MCP or plugin settings.
@@ -90,12 +102,74 @@ Examples:
 
 The server offers 23 tools over stateless Streamable HTTP with bearer-key authentication. Use a client that supports remote HTTP MCP and either bearer headers or a key URL. See [the connection guide](docs/agents.md) for configuration, supported operations, and a quick connection check.
 
+### What happens when an agent edits a note
+
+For example: “Add the venue address to my wedding note.” The agent reads the note, then requests a targeted edit. The database checks the key before allowing the change.
+
+```mermaid
+sequenceDiagram
+    actor You
+    participant Agent as AI agent
+    participant MCP as MCP server
+    participant API as Database notes API
+    participant DB as Saved notes
+
+    You->>Agent: Add the venue address
+    Agent->>MCP: Find and read the relevant note
+    MCP->>API: Request with agent key
+    API->>API: Authenticate key and check access
+    API->>DB: Read note
+    DB-->>API: Note content
+    API-->>MCP: Authorized result
+    MCP-->>Agent: Note content
+
+    Agent->>MCP: Apply an exact edit
+    MCP->>API: Edit request with agent key
+    API->>API: Check permission for this note
+    alt Edit allowed
+        API->>DB: Save edit, history and activity
+        DB-->>API: Updated note
+        API-->>MCP: Success
+        MCP-->>Agent: Updated note
+        Agent-->>You: Confirm the change
+    else Edit denied
+        API-->>MCP: Permission error
+        MCP-->>Agent: Edit refused
+        Agent-->>You: Explain that the key cannot edit it
+    end
+```
+
+Permissions are enforced in the database, even if an agent lists tools its key cannot use. For small changes, prefer exact edits or appends; for rewrites, read the note first and supply its expected version. See the [agent connection guide](docs/agents.md).
+
 ## Own your installation
 
-```text
-Browser / phone ─── Vercel React app ─── Supabase Auth + Postgres + private Storage
-AI agent ────────── Vercel /api/mcp ───── authenticated notes API in Postgres
-                                        └── Edge Functions: images, semantic search
+You and your agents work with the same saved notes through two access paths. You sign in to the web app; agents use MCP with separate permission keys. Each agent retrieves context when needed, while conversation histories stay with their respective agents.
+
+```mermaid
+flowchart TB
+    You["You · phone or computer"]
+    Agents["ChatGPT · Claude Code · Codex"]
+    subgraph Vercel["Your Vercel deployment"]
+        App["Notes web app"]
+        MCP["MCP server · /api/mcp"]
+    end
+    subgraph Supabase["Your Supabase project"]
+        Auth["Auth · owner sign-in"]
+        API["Notes API · checks agent permissions"]
+        DB[("Postgres · notes, folders,<br/>history and activity")]
+        Functions["Edge Functions · images<br/>and semantic search"]
+        Storage[("Private image storage")]
+    end
+    You --> App
+    App <--> Auth
+    App <-->|Owner access with row-level security| DB
+    Agents <-->|MCP tools + separate agent keys| MCP
+    MCP <--> API
+    API <--> DB
+    App <--> Functions
+    MCP <--> Functions
+    Functions <--> DB
+    Functions <--> Storage
 ```
 
 One owner per installation, identified by their Supabase Auth UUID. Row Level Security blocks other accounts. Agent keys are stored as hashes. The web app and Vercel MCP endpoint use only your Supabase publishable key. The Supabase Edge Functions use server-side credentials to manage images and embeddings.
