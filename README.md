@@ -10,6 +10,16 @@ Deploy a private copy in **your own Vercel and Supabase accounts**. Your notes s
 
 *Example workspace with fictional notes.*
 
+## Demo videos
+
+[![Notes with MCP — demo video preview](https://github.com/farhan1301/notes-with-mcp/releases/download/demo-videos/notes-with-mcp-poster.jpg)](https://github.com/farhan1301/notes-with-mcp/releases/tag/demo-videos)
+
+**[60-second overview (MP4)](https://github.com/farhan1301/notes-with-mcp/releases/download/demo-videos/notes-with-mcp-60s.mp4)** · **[2-minute walkthrough (MP4)](https://github.com/farhan1301/notes-with-mcp/releases/download/demo-videos/notes-with-mcp-walkthrough-120s.mp4)**
+
+No narration: captions, animated framing, and original sound effects. See AI access permissions, the ChatGPT custom MCP setup screen, and real edits, organization, creation, and recoverable deletion of fictional demo notes. The longer walkthrough also shows a checklist with an image and ChatGPT's completion summary.
+
+The setup screen uses a placeholder URL; the action demo uses an existing connection. The key-creation form is shown without issuing another credential. The image was added through the Notes MCP connector after ChatGPT created the checklist.
+
 ## Install with your coding agent
 
 Give Codex, Claude Code, or another coding agent this prompt:
