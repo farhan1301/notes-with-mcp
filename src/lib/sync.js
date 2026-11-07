@@ -80,6 +80,7 @@ export const syncNow = async () => {
     return;
   }
   running = true;
+  let failed = null;
   try {
     do {
       again = false;
@@ -89,6 +90,7 @@ export const syncNow = async () => {
         break;
       }
       setStatus('saving');
+      failed = null;
       for (const draft of pending) {
         try {
           const row = await saveOne(draft);
@@ -102,11 +104,15 @@ export const syncNow = async () => {
             setStatus('offline');
             return;
           }
-          setStatus('error', error.message);
-          return;
+          // Keep saving the other drafts; this one is retried later.
+          failed ??= error;
         }
       }
     } while (again);
+    if (failed) {
+      setStatus('error', failed.message);
+      return;
+    }
     const left = Object.values(allDrafts()).some((d) => !d.conflict && !(d.baseVersion == null && isEmptyDraft(d)));
     setStatus(left ? 'saving' : 'idle');
     if (left) setTimeout(syncNow, 0);

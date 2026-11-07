@@ -225,7 +225,7 @@ export default function NotesApp() {
 
   const newNote = () => {
     const id = crypto.randomUUID();
-    setSelected({ id, newFolderId: view.kind === 'folder' ? view.folderId : null });
+    setSelected({ id, isNew: true, newFolderId: view.kind === 'folder' ? view.folderId : null });
     setQuery('');
     setPane('note');
   };
@@ -454,6 +454,7 @@ export default function NotesApp() {
                 key={selected.id}
                 noteId={selected.id}
                 meta={selectedMeta}
+                created={Boolean(selected.isNew)}
                 newFolderId={selected.newFolderId ?? null}
                 folders={folders}
                 folderPathOf={folderPathOf}

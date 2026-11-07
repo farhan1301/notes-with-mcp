@@ -42,7 +42,7 @@ const SaveState = ({ status, dirty, conflict }) => {
 };
 
 export default function Editor({
-  noteId, meta, newFolderId, folders, folderPathOf, onBack, gallery, onChanged, onRemoved, listHidden, onToggleList,
+  noteId, meta, created, newFolderId, folders, folderPathOf, onBack, gallery, onChanged, onRemoved, listHidden, onToggleList,
 }) {
   const dialog = useDialog();
   const [note, setNote] = useState(null); // server copy (with content)
@@ -69,8 +69,12 @@ export default function Editor({
   const pendingCaret = useRef(null); // { offset | 'title', y? }: cursor to place after switching to edit
   const pendingPreview = useRef(null); // { line, y }: spot to keep after switching to preview
   const timer = useRef(null);
-  const isNew = !meta;
-  const inTrash = Boolean(meta?.deleted_at);
+  // New means started here and not saved yet: via "New note", or an unsaved
+  // draft from earlier. Any other note missing from the local list (e.g. one an
+  // agent just created) is loaded from the server instead.
+  const [startedNew] = useState(() => created || getDraft(noteId)?.baseVersion === null);
+  const isNew = startedNew && !meta;
+  const inTrash = Boolean((meta ?? note)?.deleted_at);
 
   const applyDraftOr = useCallback((row) => {
     const draft = getDraft(noteId);
@@ -116,6 +120,7 @@ export default function Editor({
         }
         setNote(row);
         applyDraftOr(row);
+        if (!meta) onChanged(row); // add it to the list
         if (!cached) setMode(row.content.trim() ? 'preview' : 'edit');
       })
       .catch((error) => {

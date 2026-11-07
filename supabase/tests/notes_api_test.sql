@@ -82,8 +82,19 @@ select 'get: ' || (notes_api(current_setting('test.wkey'), 'get_note', jsonb_bui
 select 'edited by: ' || (notes_api(current_setting('test.wkey'), 'get_note', jsonb_build_object('note', current_setting('test.note'))) ->> 'last_edited_by');
 select 'history: ' || jsonb_array_length(notes_api(current_setting('test.wkey'), 'get_note_history', jsonb_build_object('note', current_setting('test.note'))) -> 'versions');
 select set_config('test.ver', (notes_api(current_setting('test.wkey'), 'get_note_history', jsonb_build_object('note', current_setting('test.note'))) -> 'versions' -> 0 ->> 'version_id'), false);
+select set_config('test.pre', (notes_api(current_setting('test.wkey'), 'get_note', jsonb_build_object('note', current_setting('test.note'))) ->> 'content'), false);
 select 'restore version: ' || (notes_api(current_setting('test.wkey'), 'restore_version', jsonb_build_object('version_id', current_setting('test.ver'))) ->> 'version');
 select 'restored text: ' || (notes_api(current_setting('test.wkey'), 'get_note', jsonb_build_object('note', current_setting('test.note'))) ->> 'content');
+-- The same key edited moments ago; restoring must still keep that text in history.
+do $$ begin
+  if not exists (
+    select 1 from jsonb_array_elements(notes_api(current_setting('test.wkey'), 'get_note_history', jsonb_build_object('note', current_setting('test.note'))) -> 'versions') v
+    where notes_api(current_setting('test.wkey'), 'get_note_version', jsonb_build_object('version_id', v ->> 'version_id')) ->> 'content' = current_setting('test.pre')
+  ) then
+    raise exception 'restore discarded the current text';
+  end if;
+  raise notice 'ok: restore kept the current text in history';
+end $$;
 select 'rename: ' || (notes_api(current_setting('test.wkey'), 'rename_folder', '{"folder":"Work/Ideas","name":"Brainstorm"}') ->> 'path');
 select 'move folder: ' || (notes_api(current_setting('test.wkey'), 'move_folder', '{"folder":"Work/Brainstorm","parent":""}') ->> 'path');
 do $$ begin

@@ -32,7 +32,7 @@ AI note apps usually charge a monthly subscription, keep your notes on their ser
 - **One shared memory for all of them.** Save research in one agent and pick it up in another, without copying and pasting or explaining it again.
 - **Your data, your accounts.** It deploys into *your own* Supabase and Vercel accounts, and your notes are plain Markdown in your own Postgres database. There's no upstream service and no telemetry.
 - **No AI API key or subscription needed.** Semantic search uses Supabase's built-in embedding model. The app targets the providers' free personal tiers ([details](#hosting-on-free-tiers)).
-- **You decide what each agent can do.** Give each agent its own key with Read only, Add to Inbox, or Full edit access. The database enforces these limits, every agent change is logged and versioned, and you can revoke a key at any time.
+- **You decide what each agent can do.** Give each agent its own key with Read only, Add to Inbox, or Full edit access. The database enforces these limits, agent changes are logged with version history, and you can revoke a key at any time.
 - **A good notes app first.** Folders, pins, checklists, tables, images, version history, Trash, offline drafts, and dark mode. You can use it every day even without AI.
 
 ## Demo videos

@@ -5,7 +5,7 @@ This file is both a human guide and an execution runbook for a coding agent. The
 ## Instructions for the coding agent
 
 1. Read this file and `AGENTS.md`. Inspect available provider connectors and authenticated CLIs. Use supported tools and current official documentation; CLI flags can change, so check `--help` first.
-2. Use a **new dedicated Supabase project and new Vercel project**. Never reuse, migrate, reset, or change an existing app or database without an explicit request. This is a fresh-install schema, not an in-place upgrade of the original personal app.
+2. Use a **new dedicated Supabase project and new Vercel project**. Never reuse, migrate, reset, or change an existing app or database without an explicit request. This guide sets up a fresh installation; it does not migrate data from another notes app.
 3. Target Supabase Free and Vercel Hobby for eligible personal use. Do not activate a trial, add billing, buy a domain, or upgrade a plan. Stop at an actual billing requirement and explain it.
 4. Perform every supported step; request human help only for login, account/organization selection when ambiguous, the owner's password/identity, or unavailable provider capabilities. Do not ask users to paste secrets into chat. Use provider login flows and local ignored credential files.
 5. Keep a private checkpoint of project identifiers and completed steps outside committed files. Resume from evidence; do not provision duplicates. Never claim a step passed if it was skipped or blocked.
@@ -40,7 +40,7 @@ supabase db push --dry-run
 supabase db push
 ```
 
-The repository includes one consolidated migration in `supabase/migrations/`. It creates the notes tables, RLS policies, private installation settings, and the private image bucket. It has no author-specific URLs or users. A provider connector can execute the migration instead; record which path was used and do not then reapply it using unrelated migration history.
+The migrations in `supabase/migrations/` create the notes tables, RLS policies, private installation settings, and the private image bucket. They contain no author-specific URLs or users. A provider connector can execute the migrations instead, in filename order; record which path was used and do not then reapply it using unrelated migration history.
 
 The app intentionally grants nobody access until an administrator configures the owner. There is no public sign-up or “first visitor becomes owner” flow.
 

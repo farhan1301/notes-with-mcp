@@ -5,7 +5,7 @@
  * using Supabase's built-in gte-small model. No external API key.
  *
  * pg_cron calls it every minute while notes are waiting (see
- * 20261026120100_notes_embedding_cron.sql). It only ever processes pending
+ * supabase/schedules.sql). It only ever processes pending
  * notes and returns counts, so it requires the private scheduler secret (deploy with verify_jwt off).
  */
 import { createClient } from 'npm:@supabase/supabase-js@2.118.0';
