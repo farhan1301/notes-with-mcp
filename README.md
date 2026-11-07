@@ -20,9 +20,9 @@ Commonplace is a clean, Apple Notes–style notes app with a built-in [Model Con
 
 It's named after the *commonplace book*, the notebook people have kept for centuries to collect ideas, quotes, and plans to reuse later. In this one, your AI agents can use those notes too.
 
-![Commonplace showing folders, notes, and the editor](docs/screenshot.png)
+![Commonplace on a phone: the note list, a checklist note, a note with a photo, and per-agent AI access keys](docs/hero.png)
 
-*Example workspace with fictional notes.*
+*Screens from the [demo](#try-the-demo), with fictional sample notes.*
 
 ## Why Commonplace?
 
@@ -34,6 +34,27 @@ AI note apps usually charge a monthly subscription, keep your notes on their ser
 - **No AI API key or subscription needed.** Semantic search uses Supabase's built-in embedding model. The app targets the providers' free personal tiers ([details](#hosting-on-free-tiers)).
 - **You decide what each agent can do.** Give each agent its own key with Read only, Add to Inbox, or Full edit access. The database enforces these limits, agent changes are logged with version history, and you can revoke a key at any time.
 - **A good notes app first.** Folders, pins, checklists, tables, images, version history, Trash, offline drafts, and dark mode. You can use it every day even without AI.
+
+## Try the demo
+
+Demo mode runs the real app in your browser with fictional sample notes. It needs no backend and no account. Nothing is saved: a reload (or **Sign out**) starts over. Everything works except the parts that need a server, such as image uploads and creating agent keys, which say so when you try them. Agents can't connect to the demo.
+
+<!-- Add the link to your hosted demo here, e.g. **[Open the live demo →](https://your-demo.vercel.app)** -->
+
+Run it locally:
+
+```sh
+npm ci
+npm run dev:demo
+```
+
+### Host your own demo
+
+1. Import this repository as a **new** Vercel project (framework **Vite**, build command `npm run build`, output `dist`).
+2. Add the environment variable `VITE_DEMO` = `true`. Leave out the Supabase variables; the demo doesn't use them.
+3. Deploy. You don't need a Supabase project, database or other backend.
+
+Any static host works as well: run `npm run build:demo` and publish the `dist` folder.
 
 ## Demo videos
 
@@ -59,6 +80,10 @@ You'll need a Supabase account and a Vercel account. You (not the agent) handle 
 - **Find things:** keyword search, tags, and optional semantic (meaning-based) search.
 - **Recover changes:** note version history, conflict detection, a Trash for notes, and a 30-day Trash for images.
 - **Use it on your phone:** add the web app to your home screen. It's a web app (PWA), not a native iOS client.
+
+![Commonplace on a computer: folders, notes, and the editor side by side](docs/screenshot.png)
+
+*On a computer: folders, notes, and the editor side by side (fictional notes).*
 
 ## Connect your AI agents
 
@@ -217,7 +242,7 @@ npm test
 npm run build
 ```
 
-For a configured development workspace, copy `.env.example` to `.env.local`, supply your own public project values, and run `npm run dev`. Vite serves the UI only; use `vercel dev` for `/api/mcp`. Never point automated tests at your live database. See [CONTRIBUTING.md](CONTRIBUTING.md) for database, Edge Function, and MCP integration checks, and [docs/verification.md](docs/verification.md) for what was checked before release.
+For a configured development workspace, copy `.env.example` to `.env.local`, supply your own public project values, and run `npm run dev`. Vite serves the UI only; use `vercel dev` for `/api/mcp`. Never point automated tests at your live database. `npm run dev:demo` runs the UI on an in-memory sample backend (`src/demo/`). If you add a new query or table, add it to the demo client and seed too. See [CONTRIBUTING.md](CONTRIBUTING.md) for database, Edge Function, and MCP integration checks, and [docs/verification.md](docs/verification.md) for what was checked before release.
 
 Built with React, Vite, Tailwind, Supabase, and Vercel. Inspired by the simplicity of Apple Notes; not affiliated with Apple.
 

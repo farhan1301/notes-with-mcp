@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "dev:demo": "vite --mode demo",
     "build": "vite build",
+    "build:demo": "vite build --mode demo",
     "preview": "vite preview",
     "test": "node --test src/lib/*.test.mjs api/*.test.js && node --experimental-strip-types --no-warnings --test supabase/functions/notes-embed/chunk.test.mjs && node --test scripts/*.test.mjs",
     "setup": "node scripts/setup.mjs",

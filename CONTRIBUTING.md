@@ -35,6 +35,17 @@ For schema changes, create migrations with the Supabase CLI, test them on a disp
 
 After linking a dedicated development project and configuring `.env.local`, run `npm run dev` for the Vite UI or `vercel dev` for the full serverless API. Preview builds with `npm run preview`. Never use production notes in committed screenshots.
 
+## Demo mode
+
+`npm run dev:demo` (or `npm run build:demo`) runs the real app in the browser with no backend. Demo mode is on when `VITE_DEMO=true`, which `.env.demo` sets for `--mode demo`. `src/lib/supabase.js` then creates the in-memory client from `src/demo/client.js` in place of the Supabase client. The UI code is the same; only the data layer changes.
+
+- `src/demo/client.js` implements exactly the Supabase calls the app makes, with the same `{ data, error }` results. It also copies the database rules the UI depends on: derived titles and previews, version bumps and history snapshots, the duplicate-id error (`23505`) that `sync.js` recovers from, folder name and cycle checks, and the image Trash. Uploads, creating agent keys and Google sign-in return "This is the demo. Install your own copy to use this."
+- `src/demo/seed.js` holds fictional sample data. Its dates are relative to the current time.
+- `src/lib/storage.js` keeps browser storage in memory in demo mode, so a reload starts over. **Sign out** also resets the sample data.
+- With `VITE_DEMO` unset, the normal build leaves the demo modules out of the bundle.
+
+**If you add a new query, table, RPC, `notes_api` action, Edge Function call or column, add it to the demo client and the seed as well.** Unknown tables and filters throw, so a missing piece shows up as a console error when you run `npm run dev:demo`.
+
 ## Pull requests
 
 Explain the user-visible behavior and relevant validation. Keep credentials and private data out of issues and PRs. Add meaningful tests for permission, storage, sync, and transport changes. Keep installation instructions and the tool reference in sync with implementation. The repository uses exact dependency versions and a committed lockfile; update them together.

@@ -1,11 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
+import { DEMO, DEMO_PROJECT_URL } from '../demo/mode';
+import { createDemoClient } from '../demo/client';
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
+/** The project URL, used in image links written into notes. */
+export const SUPABASE_URL = DEMO ? DEMO_PROJECT_URL : url;
+
 // Publishable key only: the database lets the signed-in owner in (RLS) and
 // nobody else. Secret keys must never reach the browser.
-export const supabase = url && key
+// Demo mode (VITE_DEMO=true) swaps in an in-memory client with sample data.
+export const supabase = DEMO ? createDemoClient() : url && key
   ? createClient(url, key, {
     auth: {
       persistSession: true,

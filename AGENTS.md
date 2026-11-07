@@ -9,4 +9,5 @@ Commonplace is a single-owner notes app deployed into each user's own Supabase a
 - Retain read, Inbox, and edit permission boundaries, image checks, version conflicts, and the agent audit log.
 - Public `VITE_*` variables contain only the project URL, publishable key, and UI flags. Never commit secrets, personal notes, `.setup/`, `.env.local`, `.vercel/`, or production database dumps.
 - Use `npm ci`, `npm test`, `npm run test:edge` (requires Deno), and `npm run build`. Run `npm run test:db` against disposable Postgres with pgvector for SQL changes. See `CONTRIBUTING.md` for integration checks.
+- Demo mode (`VITE_DEMO=true`, `src/demo/`) swaps the Supabase client for an in-memory one. If you add a query, table, RPC or `notes_api` action the app uses, add it to `src/demo/client.js` and `src/demo/seed.js` too.
 - Do not promise universal client support, unlimited free hosting, or completed cloud verification without evidence.

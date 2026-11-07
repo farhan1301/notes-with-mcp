@@ -387,7 +387,7 @@ export default function NotesApp() {
   };
 
   return (
-    <div className="flex h-[100dvh] overflow-hidden bg-stone-50 text-stone-900 dark:bg-neutral-950 dark:text-stone-100">
+    <div className="flex h-[calc(100dvh_-_var(--demo-banner,0px))] overflow-hidden bg-stone-50 text-stone-900 dark:bg-neutral-950 dark:text-stone-100">
       <aside
         style={{ '--w': `${layout.sidebar}px` }}
         className={`${pane === 'nav' ? 'flex' : 'hidden'} ${layout.sidebarHidden || (!gallery && layout.listHidden) ? 'md:hidden' : 'md:flex'} relative w-full shrink-0 flex-col border-r bg-stone-100/70 md:w-[var(--w)] dark:bg-neutral-900/60 ${column}`}

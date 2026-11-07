@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" font-family="ui-sans-serif, system-ui, sans-serif">
+  <rect width="800" height="500" fill="#fbfaf6"/>
+  <g fill="none" stroke="#3a3a3c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="60" y="50" width="230" height="400" rx="28"/>
+    <rect x="85" y="95" width="180" height="26" rx="6"/>
+    <rect x="85" y="140" width="180" height="120" rx="12"/>
+    <path d="M85 285h180M85 315h140M85 345h160"/>
+    <rect x="85" y="385" width="180" height="40" rx="20" fill="#f5c242" stroke="#3a3a3c"/>
+    <rect x="360" y="50" width="380" height="250" rx="16"/>
+    <path d="M360 95h380M395 140h120M395 175h300M395 210h260M395 245h180"/>
+    <path d="M300 220c25-10 40-12 55-5" stroke="#d9480f"/>
+    <path d="M345 207l12 8-14 5" stroke="#d9480f"/>
+    <rect x="360" y="330" width="170" height="120" rx="14" stroke-dasharray="10 8"/>
+    <rect x="570" y="330" width="170" height="120" rx="14" stroke-dasharray="10 8"/>
+  </g>
+  <g fill="#3a3a3c" font-size="20">
+    <text x="410" y="83">Today</text>
+    <text x="380" y="398">Empty state?</text>
+    <text x="598" y="398">Offline banner</text>
+  </g>
+  <text x="300" y="185" fill="#d9480f" font-size="18">swipe to save</text>
+</svg>

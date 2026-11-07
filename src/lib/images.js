@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { SUPABASE_URL, supabase } from './supabase';
 import { IMAGE_BUCKET, imageMarkdown } from './markdown';
 
 const MAX_SIDE = 2560; // px: plenty for a note, and keeps phone photos small
@@ -67,7 +67,7 @@ export const uploadImage = async (file, noteId) => {
   const path = `${noteId}/${crypto.randomUUID()}.${EXTENSIONS[type] || 'img'}`;
   const { error } = await supabase.storage.from(IMAGE_BUCKET).upload(path, body, { contentType: type, cacheControl: '31536000' });
   if (error) throw error;
-  return imageMarkdown(import.meta.env.VITE_SUPABASE_URL, path);
+  return imageMarkdown(SUPABASE_URL, path);
 };
 
 // path → Promise<signed URL>, refreshed before it expires.
@@ -112,4 +112,4 @@ export const deleteTrashedImages = async (paths) => {
 };
 
 /** The Markdown that puts an image from the Trash back into a note. */
-export const trashedImageMarkdown = (path) => imageMarkdown(import.meta.env.VITE_SUPABASE_URL, path);
+export const trashedImageMarkdown = (path) => imageMarkdown(SUPABASE_URL, path);
