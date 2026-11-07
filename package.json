@@ -1,7 +1,7 @@
 {
-  "name": "notes-with-mcp",
+  "name": "commonplace",
   "version": "1.0.0",
-  "description": "Your notes. Your data. Connected to your AI agents.",
+  "description": "Open-source, self-hosted notes you own, shared with every AI agent you use over MCP.",
   "private": true,
   "scripts": {
     "dev": "vite",

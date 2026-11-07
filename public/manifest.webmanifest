@@ -1,7 +1,7 @@
 {
-  "name": "Notes",
-  "short_name": "Notes",
-  "description": "Private notes connected to your AI agents",
+  "name": "Commonplace",
+  "short_name": "Commonplace",
+  "description": "Notes you own, shared with every AI agent you use",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f7f7f5",

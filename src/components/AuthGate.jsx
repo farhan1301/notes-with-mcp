@@ -76,7 +76,7 @@ export default function AuthGate({ children }) {
     <div className="flex min-h-[100dvh] items-center justify-center bg-stone-50 p-6 dark:bg-neutral-950">
       <div className="w-full max-w-sm text-center">
         <img src="/icon.svg" alt="" className="mx-auto mb-5 h-16 w-16 rounded-2xl shadow-sm" />
-        <h1 className="mb-1 text-2xl font-semibold text-stone-900 dark:text-stone-100">Notes with MCP</h1>
+        <h1 className="mb-1 text-2xl font-semibold text-stone-900 dark:text-stone-100">Commonplace</h1>
         <p className="mb-6 text-sm text-stone-500">Your notes. Your data. Your AI agents.</p>
         {status === 'loading' && <p className="text-stone-500" role="status">Signing in…</p>}
         {status === 'misconfigured' && <p className="text-stone-500">Finish the installation steps in INSTALL.md to connect your workspace.</p>}

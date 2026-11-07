@@ -1,47 +1,72 @@
-# Notes with MCP
+<p align="center">
+  <img src="public/icon.svg" alt="" width="88" height="88" />
+</p>
 
-**Your notes. Your data. Connected to your AI agents.**
+<h1 align="center">Commonplace</h1>
 
-An Apple Notes–inspired notes app with a built-in [Model Context Protocol](https://modelcontextprotocol.io/) server. Write on your phone or computer. Let an agent find an idea, clean up dictation, file your Inbox, or add a screenshot—with the access you choose.
+<p align="center">
+  <strong>The notes app your AI agents share. Open source, self-hosted, and yours.</strong>
+</p>
 
-Deploy a private copy in **your own Vercel and Supabase accounts**. Your notes stay in your database; this repository contains the application, not a shared notes service.
+<p align="center">
+  <a href="INSTALL.md">Install</a> ·
+  <a href="docs/agents.md">Connect your agents</a> ·
+  <a href="docs/data.md">Export &amp; backup</a> ·
+  <a href="SECURITY.md">Security model</a> ·
+  <a href="LICENSE">MIT license</a>
+</p>
 
-![Notes with MCP showing folders, notes, and the editor](docs/screenshot.png)
+Commonplace is a clean, Apple Notes–style notes app with a built-in [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server. You write on your phone or computer. ChatGPT, Claude Code, Codex and other MCP clients can search, read, add to, and organize the same notes, using only the permissions you give each one.
+
+It's named after the *commonplace book*, the notebook people have kept for centuries to collect ideas, quotes, and plans to reuse later. In this one, your AI agents can use those notes too.
+
+![Commonplace showing folders, notes, and the editor](docs/screenshot.png)
 
 *Example workspace with fictional notes.*
 
+## Why Commonplace?
+
+AI note apps usually charge a monthly subscription, keep your notes on their servers, and tie you to their built-in assistant. Commonplace takes a different approach:
+
+- **Bring the AI you already use.** Connect ChatGPT, Claude Code, Codex, or any remote-MCP client. Switch agents whenever you like without moving your notes.
+- **One shared memory for all of them.** Save research in one agent and pick it up in another, without copying and pasting or explaining it again.
+- **Your data, your accounts.** It deploys into *your own* Supabase and Vercel accounts, and your notes are plain Markdown in your own Postgres database. There's no upstream service and no telemetry.
+- **No AI API key or subscription needed.** Semantic search uses Supabase's built-in embedding model. The app targets the providers' free personal tiers ([details](#hosting-on-free-tiers)).
+- **You decide what each agent can do.** Give each agent its own key with Read only, Add to Inbox, or Full edit access. The database enforces these limits, every agent change is logged and versioned, and you can revoke a key at any time.
+- **A good notes app first.** Folders, pins, checklists, tables, images, version history, Trash, offline drafts, and dark mode. You can use it every day even without AI.
+
 ## Demo videos
 
-[![Notes with MCP — demo video preview](https://github.com/farhan1301/notes-with-mcp/releases/download/demo-videos/notes-with-mcp-poster.jpg)](https://github.com/farhan1301/notes-with-mcp/releases/tag/demo-videos)
+[![Commonplace demo video preview](https://github.com/farhan1301/notes-with-mcp/releases/download/demo-videos/notes-with-mcp-poster.jpg)](https://github.com/farhan1301/notes-with-mcp/releases/tag/demo-videos)
 
 **[60-second overview (MP4)](https://github.com/farhan1301/notes-with-mcp/releases/download/demo-videos/notes-with-mcp-60s.mp4)** · **[2-minute walkthrough (MP4)](https://github.com/farhan1301/notes-with-mcp/releases/download/demo-videos/notes-with-mcp-walkthrough-120s.mp4)**
 
-## Install with your coding agent
+## Get started in one prompt
 
 Give Codex, Claude Code, or another coding agent this prompt:
 
-> Install https://github.com/farhan1301/notes-with-mcp for me. Read INSTALL.md and follow it to set up a private, single-owner instance in my own Supabase and Vercel accounts using the free personal-use tiers. Handle the setup and verification you can, and guide me through account sign-in or steps that need my input. Do not purchase anything or modify an existing project.
+> Install https://github.com/farhan1301/notes-with-mcp for me. Read INSTALL.md and follow it to set up a private, single-owner Commonplace instance in my own Supabase and Vercel accounts using the free personal-use tiers. Handle the setup and verification you can, and guide me through account sign-in or steps that need my input. Do not purchase anything or modify an existing project.
 
-**[Installation guide →](INSTALL.md)** · **[Connect your agents →](docs/agents.md)** · **[Back up your data →](docs/data.md)**
+Prefer to do it yourself? Follow the **[installation guide](INSTALL.md)**. It also works as a runbook for coding agents.
 
-You will need accounts with both providers. Account login, choosing the owner, and supplying credentials may need your participation. No paid AI API key is required by this app. Your agent's own subscription or usage is separate.
+You'll need a Supabase account and a Vercel account. You (not the agent) handle signing in, choosing the owner account, and approving credentials. Commonplace doesn't need a paid AI API key; any subscription for the agents you connect is separate.
 
-## A notes app you can use every day
+## Everyday notes features
 
-- **Familiar layout:** resizable folders, notes, and editor columns; list or gallery; pins; date grouping; light, dark, or system appearance.
-- **Write naturally:** plain text or Markdown, formatting controls, headings, lists, checklists, tables, and autosave. Drafts stay on the device during a connection interruption and sync when you reconnect.
-- **Keep images with your notes:** paste, drag, or upload photos and screenshots to private storage. Agents can view supported images and add images using base64; URL downloads are an optional administrator setting.
-- **Find things:** keyword search, tags, and optional semantic search using Supabase's built-in embedding model.
-- **Recover changes:** note version history, conflict detection, note Trash, and a 30-day image Trash.
-- **Use it on your phone:** add the web app to your home screen. This is a web app/PWA, not a native Apple Notes client.
+- **Familiar layout:** resizable folders, notes, and editor columns; list or gallery view; pins; date grouping; light, dark, or system appearance.
+- **Write naturally:** plain text or Markdown, formatting controls, headings, lists, checklists, tables, and autosave. If your connection drops, drafts stay on the device and sync when you reconnect.
+- **Keep images with your notes:** paste, drag, or upload photos and screenshots to private storage. Agents can view supported images and add new ones as base64. Downloading images from URLs is an optional setting the administrator turns on.
+- **Find things:** keyword search, tags, and optional semantic (meaning-based) search.
+- **Recover changes:** note version history, conflict detection, a Trash for notes, and a 30-day Trash for images.
+- **Use it on your phone:** add the web app to your home screen. It's a web app (PWA), not a native iOS client.
 
-## AI access: connect your notes to your agents
+## Connect your AI agents
 
 Your notes can be a **context layer you own**, shared across the AI agents you use. Keep ideas, plans, decisions, reference material, and images in one place. Each connected agent can find and work with those notes using the access you give it.
 
 ### 1. Create a key for each agent
 
-Open **AI access** in the notes app, give the key a name such as “ChatGPT”, “Claude Code”, or “Codex”, and choose its permissions. Create separate keys so you can change or revoke one agent's access independently.
+Open **AI access** in Commonplace, give the key a name such as “ChatGPT”, “Claude Code”, or “Codex”, and choose its permissions. Create separate keys so you can change or revoke one agent's access independently.
 
 | Key access | What the agent can do |
 | --- | --- |
@@ -69,12 +94,12 @@ AI access shows the connection URL and setup commands when you create a key. Cop
 
 | Agent | How to connect |
 | --- | --- |
-| **ChatGPT** | On the web, open **[Plugins](https://chatgpt.com/plugins)** → **+** → **Add custom MCP server**. Name it “My Notes”, paste the key URL from AI access as the Server URL, and select **Create as a plugin**. Install the plugin, then select it with `@` in your conversation. |
+| **ChatGPT** | On the web, open **[Plugins](https://chatgpt.com/plugins)** → **+** → **Add custom MCP server**. Name it “Commonplace”, paste the key URL from AI access as the Server URL, and select **Create as a plugin**. Install the plugin, then select it with `@` in your conversation. |
 | **Claude Code** | Add the connection with `claude mcp add --transport http notes "YOUR_MCP_KEY_URL"`. AI access provides the command with your own URL. |
 | **Codex** | Use the command in AI access to add the MCP endpoint, with your key supplied through the private `NOTES_AGENT_KEY` environment variable. |
 | **Other MCP-capable agents** | Add a custom remote MCP server using your endpoint and an Authorization bearer key, or the key URL if the client accepts URL-based connections. |
 
-For ChatGPT's key-URL connection, choose **No authentication** if the creation screen asks for an authentication method: the key included in the URL authenticates requests to your notes app. Keep that URL private, just like a password. Custom plugin access depends on your account and workspace permissions. See the [official ChatGPT setup guide](https://developers.openai.com/api/docs/guides/custom-mcp-server) and our [detailed agent connection guide](docs/agents.md).
+For ChatGPT's key-URL connection, choose **No authentication** if the creation screen asks for an authentication method: the key included in the URL authenticates requests to your Commonplace instance. Keep that URL private, just like a password. Custom plugin access depends on your account and workspace permissions. See the [official ChatGPT setup guide](https://developers.openai.com/api/docs/guides/custom-mcp-server) and our [detailed agent connection guide](docs/agents.md).
 
 ![AI access showing key permissions and agent connection instructions](docs/ai-access.png)
 
@@ -137,7 +162,7 @@ sequenceDiagram
 
 Permissions are enforced in the database, even if an agent lists tools its key cannot use. For small changes, prefer exact edits or appends; for rewrites, read the note first and supply its expected version. See the [agent connection guide](docs/agents.md).
 
-## Own your installation
+## How it works
 
 You and your agents work with the same saved notes through two access paths. You sign in to the web app; agents use MCP with separate permission keys. Each agent retrieves context when needed, while conversation histories stay with their respective agents.
 
@@ -146,7 +171,7 @@ flowchart TB
     You["You · phone or computer"]
     Agents["ChatGPT · Claude Code · Codex"]
     subgraph Vercel["Your Vercel deployment"]
-        App["Notes web app"]
+        App["Commonplace web app"]
         MCP["MCP server · /api/mcp"]
     end
     subgraph Supabase["Your Supabase project"]
@@ -172,7 +197,7 @@ One owner per installation, identified by their Supabase Auth UUID. Row Level Se
 
 Notes are Markdown text in Postgres, with an [export command](docs/data.md). You control the database, storage, backups, and deployment. This is **not end-to-end encryption**: the hosting providers and agents you authorize can process your data. [Security model →](SECURITY.md)
 
-## Free-tier target
+## Hosting on free tiers
 
 Designed for a personal installation on **Supabase Free + Vercel Hobby**. As checked November 3, 2026:
 
@@ -192,6 +217,10 @@ npm test
 npm run build
 ```
 
-For a configured development workspace, copy `.env.example` to `.env.local`, supply your own public project values, and run `npm run dev`. Vite serves the UI only; use `vercel dev` for `/api/mcp`. Never point automated tests at your live database. See [CONTRIBUTING.md](CONTRIBUTING.md) for database, Edge Function, and MCP integration checks.
+For a configured development workspace, copy `.env.example` to `.env.local`, supply your own public project values, and run `npm run dev`. Vite serves the UI only; use `vercel dev` for `/api/mcp`. Never point automated tests at your live database. See [CONTRIBUTING.md](CONTRIBUTING.md) for database, Edge Function, and MCP integration checks, and [docs/verification.md](docs/verification.md) for what was checked before release.
 
-Built with React, Vite, Tailwind, Supabase, and Vercel. Inspired by the simplicity of Apple Notes; independent of Apple. Licensed under [MIT](LICENSE).
+Built with React, Vite, Tailwind, Supabase, and Vercel. Inspired by the simplicity of Apple Notes; not affiliated with Apple.
+
+## License
+
+[MIT](LICENSE). Issues and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) first and report security problems privately as described in [SECURITY.md](SECURITY.md).

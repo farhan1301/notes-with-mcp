@@ -1,4 +1,4 @@
-# Install Notes with MCP
+# Install Commonplace
 
 This file is both a human guide and an execution runbook for a coding agent. The goal is a working private instance in **the installer's own accounts**, verified from sign-in through an agent-created note.
 
