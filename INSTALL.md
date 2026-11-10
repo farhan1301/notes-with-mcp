@@ -1,4 +1,4 @@
-# Install Commonplace
+# Install CommonNotes
 
 This file is both a human guide and an execution runbook for a coding agent. The goal is a working private instance in **the installer's own accounts**, verified from sign-in through an agent-created note.
 
@@ -18,8 +18,8 @@ Have a GitHub account, a Supabase account with capacity for a Free project, and 
 Use GitHub's **Use this template** button (or fork the repo) to create your own copy, then clone it. An agent can do this using GitHub tools if authorized. A private copy is fine; application source visibility never controls access to the notes.
 
 ```sh
-git clone https://github.com/YOUR-USERNAME/notes-with-mcp.git
-cd notes-with-mcp
+git clone https://github.com/YOUR-USERNAME/commonnotes.git
+cd commonnotes
 npm ci
 npm test
 npm run build

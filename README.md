@@ -2,13 +2,14 @@
   <img src="public/icon.svg" alt="" width="88" height="88" />
 </p>
 
-<h1 align="center">Commonplace</h1>
+<h1 align="center">CommonNotes</h1>
 
 <p align="center">
   <strong>The notes app your AI agents share. Open source, self-hosted, and yours.</strong>
 </p>
 
 <p align="center">
+  <a href="#try-the-demo"><strong>▶ Try the demo</strong></a> ·
   <a href="INSTALL.md">Install</a> ·
   <a href="docs/agents.md">Connect your agents</a> ·
   <a href="docs/data.md">Export &amp; backup</a> ·
@@ -16,17 +17,25 @@
   <a href="LICENSE">MIT license</a>
 </p>
 
-Commonplace is a clean, Apple Notes–style notes app with a built-in [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server. You write on your phone or computer. ChatGPT, Claude Code, Codex and other MCP clients can search, read, add to, and organize the same notes, using only the permissions you give each one.
+<p align="center">
+  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green" />
+  <img alt="MCP" src="https://img.shields.io/badge/MCP-native-8A2BE2" />
+  <img alt="React 18" src="https://img.shields.io/badge/React-18-61DAFB" />
+  <img alt="Supabase free tier" src="https://img.shields.io/badge/Supabase-free%20tier-3ECF8E" />
+  <img alt="Vercel Hobby" src="https://img.shields.io/badge/Vercel-Hobby-black" />
+</p>
 
-It's named after the *commonplace book*, the notebook people have kept for centuries to collect ideas, quotes, and plans to reuse later. In this one, your AI agents can use those notes too.
+CommonNotes is a clean, Apple Notes–style notes app with a built-in [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server. You write on your phone or computer. ChatGPT, Claude Code, Codex and other MCP clients can search, read, add to, and organize the same notes, using only the permissions you give each one.
 
-![Commonplace on a phone: the note list, a checklist note, a note with a photo, and per-agent AI access keys](docs/hero.png)
+The name says what it is: one set of notes held **in common** by you and every AI agent you use. It also nods to the *commonplace book*, the notebook people have kept for centuries to collect ideas and plans to reuse later.
+
+[![CommonNotes on a phone: the note list, a checklist note, a note with a photo, and per-agent AI access keys](docs/hero.png)](#try-the-demo)
 
 *Screens from the [demo](#try-the-demo), with fictional sample notes.*
 
-## Why Commonplace?
+## Why CommonNotes?
 
-AI note apps usually charge a monthly subscription, keep your notes on their servers, and tie you to their built-in assistant. Commonplace takes a different approach:
+AI note apps usually charge a monthly subscription, keep your notes on their servers, and tie you to their built-in assistant. CommonNotes takes a different approach:
 
 - **Bring the AI you already use.** Connect ChatGPT, Claude Code, Codex, or any remote-MCP client. Switch agents whenever you like without moving your notes.
 - **One shared memory for all of them.** Save research in one agent and pick it up in another, without copying and pasting or explaining it again.
@@ -58,19 +67,19 @@ Any static host works as well: run `npm run build:demo` and publish the `dist` f
 
 ## Demo videos
 
-[![Commonplace demo video preview](https://github.com/farhan1301/notes-with-mcp/releases/download/demo-videos/notes-with-mcp-poster.jpg)](https://github.com/farhan1301/notes-with-mcp/releases/tag/demo-videos)
+[![CommonNotes demo video preview](https://github.com/farhan1301/commonnotes/releases/download/demo-videos/notes-with-mcp-poster.jpg)](https://github.com/farhan1301/commonnotes/releases/tag/demo-videos)
 
-**[60-second overview (MP4)](https://github.com/farhan1301/notes-with-mcp/releases/download/demo-videos/notes-with-mcp-60s.mp4)** · **[2-minute walkthrough (MP4)](https://github.com/farhan1301/notes-with-mcp/releases/download/demo-videos/notes-with-mcp-walkthrough-120s.mp4)**
+**[60-second overview (MP4)](https://github.com/farhan1301/commonnotes/releases/download/demo-videos/notes-with-mcp-60s.mp4)** · **[2-minute walkthrough (MP4)](https://github.com/farhan1301/commonnotes/releases/download/demo-videos/notes-with-mcp-walkthrough-120s.mp4)**
 
 ## Get started in one prompt
 
 Give Codex, Claude Code, or another coding agent this prompt:
 
-> Install https://github.com/farhan1301/notes-with-mcp for me. Read INSTALL.md and follow it to set up a private, single-owner Commonplace instance in my own Supabase and Vercel accounts using the free personal-use tiers. Handle the setup and verification you can, and guide me through account sign-in or steps that need my input. Do not purchase anything or modify an existing project.
+> Install https://github.com/farhan1301/commonnotes for me. Read INSTALL.md and follow it to set up a private, single-owner CommonNotes instance in my own Supabase and Vercel accounts using the free personal-use tiers. Handle the setup and verification you can, and guide me through account sign-in or steps that need my input. Do not purchase anything or modify an existing project.
 
 Prefer to do it yourself? Follow the **[installation guide](INSTALL.md)**. It also works as a runbook for coding agents.
 
-You'll need a Supabase account and a Vercel account. You (not the agent) handle signing in, choosing the owner account, and approving credentials. Commonplace doesn't need a paid AI API key; any subscription for the agents you connect is separate.
+You'll need a Supabase account and a Vercel account. You (not the agent) handle signing in, choosing the owner account, and approving credentials. CommonNotes doesn't need a paid AI API key; any subscription for the agents you connect is separate.
 
 ## Everyday notes features
 
@@ -81,7 +90,7 @@ You'll need a Supabase account and a Vercel account. You (not the agent) handle 
 - **Recover changes:** note version history, conflict detection, a Trash for notes, and a 30-day Trash for images.
 - **Use it on your phone:** add the web app to your home screen. It's a web app (PWA), not a native iOS client.
 
-![Commonplace on a computer: folders, notes, and the editor side by side](docs/screenshot.png)
+![CommonNotes on a computer: folders, notes, and the editor side by side](docs/screenshot.png)
 
 *On a computer: folders, notes, and the editor side by side (fictional notes).*
 
@@ -91,7 +100,7 @@ Your notes can be a **context layer you own**, shared across the AI agents you u
 
 ### 1. Create a key for each agent
 
-Open **AI access** in Commonplace, give the key a name such as “ChatGPT”, “Claude Code”, or “Codex”, and choose its permissions. Create separate keys so you can change or revoke one agent's access independently.
+Open **AI access** in CommonNotes, give the key a name such as “ChatGPT”, “Claude Code”, or “Codex”, and choose its permissions. Create separate keys so you can change or revoke one agent's access independently.
 
 | Key access | What the agent can do |
 | --- | --- |
@@ -119,12 +128,12 @@ AI access shows the connection URL and setup commands when you create a key. Cop
 
 | Agent | How to connect |
 | --- | --- |
-| **ChatGPT** | On the web, open **[Plugins](https://chatgpt.com/plugins)** → **+** → **Add custom MCP server**. Name it “Commonplace”, paste the key URL from AI access as the Server URL, and select **Create as a plugin**. Install the plugin, then select it with `@` in your conversation. |
+| **ChatGPT** | On the web, open **[Plugins](https://chatgpt.com/plugins)** → **+** → **Add custom MCP server**. Name it “CommonNotes”, paste the key URL from AI access as the Server URL, and select **Create as a plugin**. Install the plugin, then select it with `@` in your conversation. |
 | **Claude Code** | Add the connection with `claude mcp add --transport http notes "YOUR_MCP_KEY_URL"`. AI access provides the command with your own URL. |
 | **Codex** | Use the command in AI access to add the MCP endpoint, with your key supplied through the private `NOTES_AGENT_KEY` environment variable. |
 | **Other MCP-capable agents** | Add a custom remote MCP server using your endpoint and an Authorization bearer key, or the key URL if the client accepts URL-based connections. |
 
-For ChatGPT's key-URL connection, choose **No authentication** if the creation screen asks for an authentication method: the key included in the URL authenticates requests to your Commonplace instance. Keep that URL private, just like a password. Custom plugin access depends on your account and workspace permissions. See the [official ChatGPT setup guide](https://developers.openai.com/api/docs/guides/custom-mcp-server) and our [detailed agent connection guide](docs/agents.md).
+For ChatGPT's key-URL connection, choose **No authentication** if the creation screen asks for an authentication method: the key included in the URL authenticates requests to your CommonNotes instance. Keep that URL private, just like a password. Custom plugin access depends on your account and workspace permissions. See the [official ChatGPT setup guide](https://developers.openai.com/api/docs/guides/custom-mcp-server) and our [detailed agent connection guide](docs/agents.md).
 
 ![AI access showing key permissions and agent connection instructions](docs/ai-access.png)
 
@@ -196,7 +205,7 @@ flowchart TB
     You["You · phone or computer"]
     Agents["ChatGPT · Claude Code · Codex"]
     subgraph Vercel["Your Vercel deployment"]
-        App["Commonplace web app"]
+        App["CommonNotes web app"]
         MCP["MCP server · /api/mcp"]
     end
     subgraph Supabase["Your Supabase project"]

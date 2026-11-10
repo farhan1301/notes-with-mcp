@@ -311,7 +311,7 @@ const handleMessage = async (message, key) => {
       return rpcResult(id, {
         protocolVersion: SUPPORTED_VERSIONS.includes(requested) ? requested : SUPPORTED_VERSIONS[0],
         capabilities: { tools: { listChanged: false } },
-        serverInfo: { name: 'commonplace', title: 'Commonplace', version: '1.0.0' },
+        serverInfo: { name: 'commonnotes', title: 'CommonNotes', version: '1.0.0' },
         instructions: INSTRUCTIONS,
       });
     }

@@ -1,4 +1,4 @@
-project_id = "notes-with-mcp"
+project_id = "commonnotes"
 
 [functions.notes-embed]
 verify_jwt = false

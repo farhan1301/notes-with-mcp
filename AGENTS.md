@@ -1,6 +1,6 @@
 # Working in this repository
 
-Commonplace is a single-owner notes app deployed into each user's own Supabase and Vercel accounts.
+CommonNotes is a single-owner notes app deployed into each user's own Supabase and Vercel accounts.
 
 - If asked to **install**, read and execute `INSTALL.md`. Do not create cloud resources just because this file was opened. Preserve unrelated projects and credentials.
 - If asked to **develop**, read `CONTRIBUTING.md`. Use a disposable database for tests. Never run `supabase db reset`, fixtures, or database tests on a live notes project.

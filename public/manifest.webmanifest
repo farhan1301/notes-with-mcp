@@ -1,6 +1,6 @@
 {
-  "name": "Commonplace",
-  "short_name": "Commonplace",
+  "name": "CommonNotes",
+  "short_name": "CommonNotes",
   "description": "Notes you own, shared with every AI agent you use",
   "start_url": "/",
   "display": "standalone",
